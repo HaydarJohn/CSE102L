@@ -11,45 +11,27 @@ public class HW01_20220808052
 class Stock
 {
 
-    private String symbol ="";
-    private String name ="";
-    private double previousClosingPrice = 0;
-    private double currentPrice = 0;
+    private String symbol;
+    private String name;
+    private double previousClosingPrice;
+    private double currentPrice;
 
 
     Stock(String symbol,String name)
     {
-        this.symbol = symbol.toUpperCase();
-        Scanner scan = new Scanner(name);
-        while (scan.hasNext())
-        {
-            String temp = scan.next();
-            this.name += Character.toUpperCase(temp.charAt(0)) + temp.substring(1, temp.length()).toLowerCase() + " ";
-        }
-        this.name = this.name.substring(0,this.name.length()-1);
-
+        setSymbol(symbol.toUpperCase());
+        setName(HelperMethods.capitilzeFirstLetter(name));
     }
 
-    public String getSymbol()
+    private void setSymbol(String symbol)
     {
-        return symbol;
+        this.symbol = symbol;
     }
-
-    public String getName()
+    private void setName(String name)
     {
-        return name;
+        this.name = name;
     }
-
-    public double getCurrentPrice()
-    {
-        return currentPrice;
-    }
-
-    public double getPreviousClosingPrice()
-    {
-        return previousClosingPrice;
-    }
-
+    
     public void setCurrentPrice(double currentPrice)
     {
         if(currentPrice < 0)
@@ -62,7 +44,7 @@ class Stock
 
     public void setPreviousClosingPrice(double previousClosingPrice)
     {
-        if(currentPrice < 0)
+        if(previousClosingPrice < 0)
         {
             System.out.println("ERROR!");
             return;
@@ -157,4 +139,43 @@ class Fan
         return String.format("Speed: %d, Radius %.2f, Color: %s",speed,radius,color );
     }
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class HelperMethods
+{
+    public static String capitilzeFirstLetter(String string)
+    {
+        String resultString = "";
+        Scanner scan = new Scanner(string);
+        while (scan.hasNext())
+        {
+            String temp = scan.next().toLowerCase(); 
+            temp = Character.toUpperCase(temp.charAt(0)) + temp.substring(1);
+            resultString += temp;
+            if(scan.hasNext()) {resultString += " ";}
+        }
+        return resultString;
+    }
 }
